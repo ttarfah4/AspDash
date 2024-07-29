@@ -1,0 +1,53 @@
+﻿@model Warehouse.DB.Entities.Product
+
+@if (@TempData["ErrorMsg"] != null)
+{
+    <div class="alert alert-warning text-center fw-bold">
+        @TempData["ErrorMsg"]
+        <hr />
+    </div>
+}
+else
+{
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category.CategoryName)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="modal-footer">
+        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.ProductID">Edit</a>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+    </div>
+
+}

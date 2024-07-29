@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Warehouse.DB.Entities.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categories List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Add New Category</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Category ID
+            </th>
+            <th>
+                Category Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a> |
+                    <a href="#" onclick="LoadDetails(@item.CategoryID)">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal" id="modalDetails">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="divModalDetailsHeader">Modal Heading</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="divModalDetailsBody">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function LoadDetails(id) {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Details", "Categories")/',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                $('#divModalDetailsHeader').text('Category Details');
+                $('#divModalDetailsBody').html(result);
+                $("#modalDetails").modal('show');
+            },
+            error: function (err) {
+                $('#divCaseHearingDetails').html(divWarning.replace('_message_', ErrorWhileLoadingDataMsg));
+            }
+        });
+    }
+</script>
